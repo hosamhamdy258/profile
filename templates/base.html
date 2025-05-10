@@ -1,0 +1,238 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+
+    <link rel="stylesheet" href='{% static "bootstrap/bootstrap.min.css" %}'>
+    <link rel="stylesheet" href='{% static "fontawesome/all.min.css" %}'>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .skill-badge {
+            transition: transform .2s ease;
+        }
+
+        .skill-badge:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <nav class="navbar navbar-expand-sm navbar-light bg-white shadow-sm sticky-top" data-bs-theme="light">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">{{title}}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- <ul class="nav justify-content-center w-100"> -->
+                <ul class="navbar-nav ms-auto text-center">
+                    {% for link in links_list %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#{{link.id}}">{{link.name}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-3">
+        <div id="intro" class="text-center">
+            <div class="row my-3 align-items-center justify-content-center">
+                <div class="col-sm-6">
+                    <img src="{% static 'pic.png' %}" class="img-fluid object-fit-cover border border-2 border-secondary rounded-circle" alt="Profile Picture" style="height: 200px;">
+                </div>
+                <div class="col-sm-6 mt-3">{{summary}}
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col">
+                    <a class="btn btn-sm btn-primary rounded p-2" href="#contact"><i class="fa-solid fa-paper-plane fa-xl me-2" style="color: #ffffff;"></i>Contact Me</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="border: 1px solid black;"></div>
+
+        <div id="experience" class="text-center">
+            {% for section in work_section %}
+            <h3 class="my-3 fw-bold">{{ section.header }}</h3>
+            {% for item in section.items %}
+            <div class="my-3 card">
+                <div class="card-header">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-6 my-1">
+                            <h4>{{ item.title }}</h4>
+                        </div>
+                        <div class="col-md-6 my-1"><time class="fst-italic text-secondary">{{ item.from }} - {{ item.to }}</time></div>
+                        <div class="col-10 col-md-8 rounded-pill bg-secondary-subtle fw-bold my-1">{{ item.company }}</div>
+                    </div>
+                </div>
+                <div class="text-start card-body">
+                    <div class="mt-1"><span class="text-secondary">{{ item.list_title }} :</span></div>
+                    <ul>
+                        {% for subject in item.subjects %}
+                        <li>{{subject}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    {% for badge in item.badges %}
+                    <span class="badge text-bg-success skill-badge" data-bs-toggle="tooltip" data-bs-title="{{badge.description}}" data-bs-placement="bottom">{{badge.name}}</span>
+                    {% endfor %}
+                </div>
+
+            </div>
+            {% endfor %}
+            {% if forloop.last %}
+            {% else %}
+            <div style="border: 1px solid black;"></div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <div style="border: 1px solid black;"></div>
+
+        <div id="skills" class="text-center">
+
+            {% for section in tech_skills_section %}
+            <h3 class="my-3 fw-bold">{{section.header}}</h3>
+            <div class="my-3">
+                <div class="row align-items-center justify-content-center gap-3">
+                    {% for item in section.items %}
+                    <div class="col">
+                        <a href="{{ item.url }}" target="_blank" class="link-underline-opacity-0 link-success">
+                            <img style="height:35px" src="{% static item.image %}" alt="{{ item.name }}">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+            <div style="border: 1px solid black;"></div>
+
+            {% for section in personal_skills_section %}
+            <h3 class="my-3 fw-bold">{{ section.header }}</h3>
+            <div class="my-3">
+                {% for item in section.items %}
+                {% for skill in item.all %}
+                <span class="badge text-bg-primary skill-badge m-1 p-2 fw-medium" data-bs-toggle="tooltip" data-bs-title="{{skill.description}}">{{skill.name}}</span>
+                {% endfor %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+
+        <div style="border: 1px solid black;"></div>
+
+        <div id="projects" class="text-start">
+            {% for section in projects_section %}
+            <h3 class="my-3 fw-bold">{{section.header}}</h3>
+            <div class="row">
+                {% for item in section.items %}
+                <div class="col-12">
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+
+                            <div class="mb-3">
+                                {% for tech in item.stack %}
+                                <span class="badge bg-info">{{tech}}</span>
+                                {% endfor %}
+                            </div>
+                            <p class="card-text">
+                                {{ item.summary }}
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="row row-cols-auto justify-content-around">
+                                <a href="{{ item.git }}" class="btn btn-outline-dark btn-sm" target="_blank"><i class="fa-brands fa-github me-2"></i>Code</a>
+                                <a href="{{ item.live }}" class="btn btn-success btn-sm" target="_blank"><i class="fa-solid fa-up-right-from-square me-2"></i>Live</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+        </div>
+
+
+        <div style="border: 1px solid black;"></div>
+
+        <div id="education" class="text-center">
+            {% for section in education_section %}
+            <h3 class="my-3 fw-bold">{{ section.header }}</h3>
+            {% for item in section.items %}
+            <div class="my-3 card">
+                <div class="card-header">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-6 my-1">
+                            <h4>{{ item.title }}</h4>
+                        </div>
+                        <div class="col-md-6 my-1"><time class="fst-italic text-secondary">{{ item.from }} - {{ item.to }}</time></div>
+                        <div class="col-10 col-md-8 rounded-pill bg-secondary-subtle fw-bold my-1">{{ item.company }}</div>
+                    </div>
+                </div>
+                <div class="text-start card-body">
+                    <div class="mt-1"><span class="text-secondary">{{ item.list_title }} :</span></div>
+                    <ul>
+                        {% for subject in item.subjects %}
+                        <li>{{subject}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+            {% if forloop.last %}
+            {% else %}
+            <div style="border: 1px solid black;"></div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <div style="border: 1px solid black;"></div>
+
+        <div id="contact" class="text-center">
+            {% for section in contact_section %}
+            <h3 class="my-3 fw-bold">{{ section.header }}</h3>
+            <div class="row row-cols-1 row-cols-md-2 align-items-center justify-content-center g-3">
+                {% for item in section.items %}
+                <div class="rounded bg-white shadow-sm p-3">
+                    <a {% if item.type == 'tel' %} href="tel:{{item.target}}" {% elif  item.type == 'mail' %} href="mailto:{{item.target}}" {% elif  item.type == 'link' %} href="{{item.target}}" {% endif %}
+                        class="link-underline link-underline-opacity-0">
+                        <i class="{{ item.icon }} me-2" style="color: {{item.color}};"></i>
+                        <span class="fw-medium text-break">{{ item.target }}</span>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+</body>
+
+</html>

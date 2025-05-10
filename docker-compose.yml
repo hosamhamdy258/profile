@@ -1,0 +1,10 @@
+services:
+  profile:
+    build: .
+    ports:
+      - "8000:8000"
+      - "35729:35729"
+    volumes:
+      - .:/app
+    container_name: profile
+
