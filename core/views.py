@@ -1,40 +1,37 @@
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
-from enum import EnumType
+from enum import Enum, auto
 
 
-class Badges(EnumType):
+class BadgeEnum(Enum):
+    OFFICE = auto()
+    HYBRID = auto()
+    TEAMWORK = auto()
+    LEGACY = auto()
+    REFACTOR = auto()
+    WORKLOAD = auto()
+    ORGANIZED = auto()
+    DEADLINE = auto()
+    TIME = auto()
+    PLANNING = auto()
+    CRITICAL = auto()
+    OPTIMIZER = auto()
 
-    OFFICE = "office"
-    HYBRID = "hybrid"
-    TEAMWORK = "team work"
-
-    LEGACY = "legacy code"
-    REFACTOR = "refactor"
-
-    WORKLOAD = "workload"
-    ORGANIZED = "Organization"
-    DEADLINE = "deadlines"
-    TIME = "time"
-
-    PLANNING = "planning"
-    CRITICAL = "critical"
-    OPTIMIZER = "optimizer"
 
 
 badges = {
-    Badges.LEGACY: {"name": _("Legacy Code"), "description": "Maintain legacy code to keep old systems running efficiently."},
-    Badges.REFACTOR: {"name": _("Refactor"), "description": "Improve and restructure code without disrupting business workflows."},
-    Badges.WORKLOAD: {"name": _("Workload"), "description": "Handle tasks effectively to balance productivity and efficiency."},
-    Badges.DEADLINE: {"name": _("Deadlines"), "description": "Deliver work on time while maintaining quality standards."},
-    Badges.TEAMWORK: {"name": _("Teamwork"), "description": "Collaborate effectively with colleagues to achieve common goals."},
-    Badges.HYBRID: {"name": _("Hybrid"), "description": "Adapt to both remote and in-office work environments seamlessly."},
-    Badges.PLANNING: {"name": _("Planning"), "description": "Develop structured plans to streamline workflow and decision-making."},
-    Badges.OFFICE: {"name": _("Office"), "description": "Effectively work and collaborate in an in-office or on-site setting."},
-    Badges.OPTIMIZER: {"name": _("Workflow Optimizer"), "description": "Enhance processes to improve performance and reduce inefficiencies."},
-    Badges.CRITICAL: {"name": _("Critical Transitions"), "description": "Manage and execute key changes without disrupting operations."},
-    Badges.TIME: {"name": _("Time Management"), "description": "Prioritize and allocate time effectively to meet objectives."},
-    Badges.ORGANIZED: {"name": _("Task Organization"), "description": "Maintain structured and efficient task management."},
+    BadgeEnum.LEGACY: {"name": _("Legacy Code"), "description": "Maintain legacy code to keep old systems running efficiently."},
+    BadgeEnum.REFACTOR: {"name": _("Refactor"), "description": "Improve and restructure code without disrupting business workflows."},
+    BadgeEnum.WORKLOAD: {"name": _("Workload"), "description": "Handle tasks effectively to balance productivity and efficiency."},
+    BadgeEnum.DEADLINE: {"name": _("Deadlines"), "description": "Deliver work on time while maintaining quality standards."},
+    BadgeEnum.TEAMWORK: {"name": _("Teamwork"), "description": "Collaborate effectively with colleagues to achieve common goals."},
+    BadgeEnum.HYBRID: {"name": _("Hybrid"), "description": "Adapt to both remote and in-office work environments seamlessly."},
+    BadgeEnum.PLANNING: {"name": _("Planning"), "description": "Develop structured plans to streamline workflow and decision-making."},
+    BadgeEnum.OFFICE: {"name": _("Office"), "description": "Effectively work and collaborate in an in-office or on-site setting."},
+    BadgeEnum.OPTIMIZER: {"name": _("Workflow Optimizer"), "description": "Enhance processes to improve performance and reduce inefficiencies."},
+    BadgeEnum.CRITICAL: {"name": _("Critical Transitions"), "description": "Manage and execute key changes without disrupting operations."},
+    BadgeEnum.TIME: {"name": _("Time Management"), "description": "Prioritize and allocate time effectively to meet objectives."},
+    BadgeEnum.ORGANIZED: {"name": _("Task Organization"), "description": "Maintain structured and efficient task management."},
 }
 
 
@@ -55,8 +52,8 @@ work_section = [
         "items": [
             {
                 "title": _("Full Stack Developer"),
-                "from": "11/2023",
-                "to": _("Present"),
+                "from_date": "11/2023",
+                "to_date": _("Present"),
                 "company": _("PoultrySync"),
                 "list_title": _("Responsible for"),
                 "subjects": [
@@ -66,13 +63,13 @@ work_section = [
                     _("Architected and developed RESTful APIs using Django REST Framework to support seamless integrations."),
                 ],
                 "badges": [
-                    badges.get(Badges.PLANNING),
-                    badges.get(Badges.WORKLOAD),
-                    badges.get(Badges.DEADLINE),
-                    badges.get(Badges.LEGACY),
-                    badges.get(Badges.REFACTOR),
-                    badges.get(Badges.TEAMWORK),
-                    badges.get(Badges.HYBRID),
+                    badges[BadgeEnum.PLANNING],
+                    badges[BadgeEnum.WORKLOAD],
+                    badges[BadgeEnum.DEADLINE],
+                    badges[BadgeEnum.LEGACY],
+                    badges[BadgeEnum.REFACTOR],
+                    badges[BadgeEnum.TEAMWORK],
+                    badges[BadgeEnum.HYBRID],
                 ],
             },
             {
@@ -89,12 +86,12 @@ work_section = [
                     _("Designed ERDs and database schemas in coordination with the business team."),
                 ],
                 "badges": [
-                    badges.get(Badges.LEGACY),
-                    badges.get(Badges.REFACTOR),
-                    badges.get(Badges.WORKLOAD),
-                    badges.get(Badges.DEADLINE),
-                    badges.get(Badges.TEAMWORK),
-                    badges.get(Badges.HYBRID),
+                    badges[BadgeEnum.LEGACY],
+                    badges[BadgeEnum.REFACTOR],
+                    badges[BadgeEnum.WORKLOAD],
+                    badges[BadgeEnum.DEADLINE],
+                    badges[BadgeEnum.TEAMWORK],
+                    badges[BadgeEnum.HYBRID],
                 ],
             },
         ],
@@ -113,11 +110,11 @@ work_section = [
                     _("Prepare and submit weekly/monthly reports."),
                 ],
                 "badges": [
-                    badges.get(Badges.OPTIMIZER),
-                    badges.get(Badges.WORKLOAD),
-                    badges.get(Badges.DEADLINE),
-                    badges.get(Badges.TEAMWORK),
-                    badges.get(Badges.OFFICE),
+                    badges[BadgeEnum.OPTIMIZER],
+                    badges[BadgeEnum.WORKLOAD],
+                    badges[BadgeEnum.DEADLINE],
+                    badges[BadgeEnum.TEAMWORK],
+                    badges[BadgeEnum.OFFICE],
                 ],
             },
             {
@@ -130,11 +127,11 @@ work_section = [
                     _("Manage all accounting transactions and enter general ledger journal entries to the ERP odoo system."),
                 ],
                 "badges": [
-                    badges.get(Badges.CRITICAL),
-                    badges.get(Badges.WORKLOAD),
-                    badges.get(Badges.ORGANIZED),
-                    badges.get(Badges.TIME),
-                    badges.get(Badges.OFFICE),
+                    badges[BadgeEnum.CRITICAL],
+                    badges[BadgeEnum.WORKLOAD],
+                    badges[BadgeEnum.ORGANIZED],
+                    badges[BadgeEnum.TIME],
+                    badges[BadgeEnum.OFFICE],
                 ],
             },
         ],
@@ -144,7 +141,7 @@ personal_skills_section = [
     {
         "header": _("Skills"),
         "items": [
-            {"all": badges.values()},
+            {"all": list(badges.values())},
             {"details": ""},
         ],
     },
@@ -274,7 +271,7 @@ projects_section = [
 ]
 contact_section = [
     {
-        "header": _("Contact Info"),
+        "header": _("Contact Information"),
         "items": [
             {"type": "tel", "name": "Mobile", "target": "+201015434803", "icon": "fa-solid fa-phone fa-2xl", "color": "#1ae03e"},
             {"type": "mail", "name": "Mail", "target": "hosamhamdy258@gmail.com", "icon": "fa-solid fa-envelope fa-2xl", "color": "#ffbd07"},

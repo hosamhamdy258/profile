@@ -43,21 +43,25 @@
                     {% endfor %}
                 </ul>
             </div>
+            {% comment%}
+            <a href="{% url 'resume_pdf' %}" class="btn btn-outline-primary ms-3 d-none d-md-inline-block" title="Download PDF"><i class="fa-solid fa-file-pdf me-1"></i> Download PDF</a>
+            {% endcomment %}
         </div>
     </nav>
 
     <div class="container py-3">
         <div id="intro" class="text-center">
             <div class="row my-3 align-items-center justify-content-center">
-                <div class="col-sm-6">
-                    <img src="{% static 'pic.png' %}" class="img-fluid object-fit-cover border border-2 border-secondary rounded-circle" alt="Profile Picture" style="height: 200px;">
+    <div class="col-12 col-sm-6 mb-3 mb-sm-0">
+      <img src="{% static 'pic.png' %}" class="img-fluid object-fit-cover border border-2 border-secondary rounded-circle" alt="Photo of {{ title }}" style="height: 200px;">
                 </div>
-                <div class="col-sm-6 mt-3">{{summary}}
+    <div class="col-12 col-sm-6 mt-3">
+      <p class="lead">{{ summary }}</p>
                 </div>
             </div>
             <div class="row my-3">
                 <div class="col">
-                    <a class="btn btn-sm btn-primary rounded p-2" href="#contact"><i class="fa-solid fa-paper-plane fa-xl me-2" style="color: #ffffff;"></i>Contact Me</a>
+      <a class="btn btn-primary rounded-pill px-4 py-2" href="#contact"><i class="fa-solid fa-paper-plane fa-xl me-2" style="color: #ffffff;"></i>Contact Me</a>
                 </div>
             </div>
         </div>
@@ -227,7 +231,11 @@
 
 
     </div>
-
+    <footer class="text-center py-4 bg-white border-top mt-5">
+      <div class="container">
+        <small>&copy; {{ title }} {{ now|date:'Y' }}. All rights reserved.</small>
+      </div>
+    </footer>
     <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
